@@ -6,7 +6,7 @@
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
                         userId="root"
                         password="123456"
-                        connectionURL="jdbc:mysql://192.168.12.161:8066/user?characterEncoding=UTF-8&amp;useSSL=false&amp;useUnicode=true&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true">
+                        connectionURL="jdbc:mysql://192.168.12.161:3306/sharding1?characterEncoding=UTF-8&amp;useSSL=false&amp;useUnicode=true&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true">
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
@@ -14,20 +14,24 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.fanx.xa.mycat.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.fanx.shardingspheredemo.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mybatis" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="com.fanx.shardingspheredemo.mapper" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.fanx.xa.mycat.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.fanx.shardingspheredemo.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table schema="user" tableName="user" domainObjectName="User">
+        <table schema="sharding1" tableName="t_order" domainObjectName="Order">
+            <columnOverride column="order_id" javaType="Long"/>
+        </table>
+        <table schema="sharding1" tableName="t_order_item" domainObjectName="OrderItem">
+            <columnOverride column="id" javaType="Long"/>
         </table>
     </context>
 </generatorConfiguration>
